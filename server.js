@@ -5,8 +5,9 @@ import path from 'path';
 import { Server } from 'socket.io';
 import { formateMessage, getCurrentUser, joinNewUser, removeUser } from './utils/utils.js';
 
+env.config();
 const __dirname = path.resolve();
-const PORT = env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
