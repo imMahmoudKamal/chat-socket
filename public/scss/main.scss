@@ -1,4 +1,272 @@
-* {
-  font-size: 100px;
-  background-color: #fff;
+@import './base/reset'; // reset
+@import './abstracts/variables'; // variables
+@import './abstracts/mixins'; // mixins
+
+:root {
+  font-size: 20px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, rgb(var(--clr-blue) / 80%), rgb(var(--clr-green) / 60%));
+}
+
+.chatting {
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    background: linear-gradient(30deg, rgb(var(--clr-blue)) 30%, rgb(var(--clr-green)));
+    border-radius: 50%;
+  }
+
+  &::before {
+    top: -2rem;
+    right: -2rem;
+  }
+
+  &::after {
+    left: -2rem;
+    bottom: -2rem;
+    background: linear-gradient(135deg, rgb(var(--clr-blue) / 50%), rgb(var(--clr-green)));
+  }
+
+  &__container {
+    background: linear-gradient(0deg, rgb(var(--clr-neutral-100) / 10%), rgb(var(--clr-neutral-100) / 40%));
+    outline: 1px solid rgb(var(--clr-neutral-100) / 50%);
+    height: 100%;
+    width: 100%;
+    max-width: 17rem;
+    margin: 0 auto;
+    border-radius: 1rem;
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    $gradient: linear-gradient(75deg, rgb(var(--clr-accent) / 90%) 50%, rgb(var(--clr-green)));
+    @include gradient-font-clr($gradient);
+    margin-bottom: 1rem;
+  }
+
+  &__group {
+    position: relative;
+
+    & + & {
+      margin-top: 1.5rem;
+    }
+
+    &__field {
+      font-size: 0.8rem;
+      padding: 0.6rem 0.1rem;
+      background: linear-gradient(90deg, rgb(var(--clr-accent)), rgb(var(--clr-accent))) bottom / 0 2px no-repeat,
+        linear-gradient(90deg, rgb(var(--clr-neutral-700)), rgb(var(--clr-neutral-700))) bottom / 100% 2px no-repeat;
+      color: rgb(var(--clr-neutral-700));
+      transition: background-size 150ms linear;
+
+      &:focus {
+        background-size: 100% 2px, 100% 2px;
+
+        + * {
+          transform: translateY(-1.5rem) scale(0.9);
+        }
+      }
+
+      &--full + * {
+        transform: translateY(-1.5rem) !important;
+      }
+    }
+
+    &__label {
+      position: absolute;
+      left: 0.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.65rem;
+      font-weight: 700;
+      $gradient: linear-gradient(22deg, rgb(var(--clr-neutral-700)) 60%, rgb(var(--clr-green) / 100%));
+      @include gradient-font-clr($gradient);
+      transition: transform 150ms linear;
+      z-index: 2;
+    }
+  }
+
+  &__submit {
+    margin-top: 1.5rem;
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(30deg, rgb(var(--clr-blue)) 30%, rgb(var(--clr-green)));
+    color: rgb(var(--clr-neutral-100));
+  }
+}
+
+.message {
+  position: absolute;
+  inset: auto 1rem 1rem;
+  background: linear-gradient(30deg, rgb(var(--clr-neutral-100) / 30%), rgb(var(--clr-neutral-100) / 70%));
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__field {
+    border: 0.1rem solid rgb(var(--clr-neutral-200) / 50%);
+    border-radius: 0.2rem;
+    font-size: 0.7rem;
+    padding: 0.45rem 0.5rem;
+    color: rgb(var(--clr-neutral-700));
+  }
+
+  &__button {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    place-items: center;
+  }
+}
+
+.message-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  position: absolute;
+  inset: 1rem 1rem 5rem 1rem;
+
+  &__item {
+    width: fit-content;
+    background: linear-gradient(30deg, rgb(var(--clr-neutral-100) / 30%), rgb(var(--clr-neutral-100) / 70%));
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.25rem;
+    position: relative;
+    margin-left: 2rem;
+    box-shadow: 0 2px 4px rgb(var(--clr-neutral-700) / 10%);
+    font-size: 0.8rem;
+    display: grid;
+    grid-template-rows: 1fr 0.75rem;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.2rem;
+    row-gap: 0.2rem;
+
+    &::before,
+    &::after {
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      left: -2rem;
+      bottom: 0.1rem;
+      border-radius: 50%;
+    }
+
+    &::before {
+      content: attr(data-user-name);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      z-index: 1;
+      $gradient: linear-gradient(75deg, rgb(var(--clr-accent) / 90%) 50%, rgb(var(--clr-green)));
+      @include gradient-font-clr($gradient);
+    }
+
+    &::after {
+      content: '';
+      background-color: rgb(var(--clr-blue) / 20%);
+    }
+
+    &__message {
+      width: 100%;
+      grid-column: 1 / -1;
+      grid-row: 1/2;
+    }
+
+    &__user {
+      grid-row: 2/3;
+      grid-column: 1/2;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      $gradient: linear-gradient(75deg, rgb(var(--clr-accent) / 90%) 50%, rgb(var(--clr-neutral-700)));
+      @include gradient-font-clr($gradient);
+    }
+
+    &__time {
+      font-size: 0.6rem;
+      color: rgb(var(--clr-neutral-700) / 80%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+
+    &--me {
+      align-self: flex-end;
+      background: rgb(var(--clr-neutral-700));
+      color: rgb(var(--clr-neutral-100));
+      margin-right: 2rem;
+      margin-left: 0;
+
+      &::before,
+      &::after {
+        left: unset;
+        right: -2rem;
+      }
+      & span:first-child {
+        text-align: end;
+      }
+
+      & span:last-child {
+        grid-column: 1 / -1;
+        color: rgb(var(--clr-neutral-100) / 80%);
+      }
+    }
+
+    &--bot {
+      margin: 0 auto;
+
+      & span:first-child {
+        text-align: center;
+        font-size: 0.6rem;
+      }
+
+      & span:last-child {
+        justify-content: center;
+        grid-column: 1 / -1;
+      }
+
+      &::before,
+      &::after {
+        content: none;
+      }
+    }
+  }
 }
