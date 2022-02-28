@@ -4,8 +4,9 @@
   "description": "Chat App using socket io",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --kill-others \"npm run start\" \"npm run scss\"",
-    "start": "nodemon server.js -e js,scss,html,scc",
+    "start": "node server.js",
+    "dev": "concurrently --kill-others \"npm run watch\" \"npm run scss\"",
+    "watch": "nodemon server.js -e js,scss,html,scc",
     "scss": "sass --watch public/scss/main.scss public/css/main.css",
     "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' ./src/server.ts"
   },
