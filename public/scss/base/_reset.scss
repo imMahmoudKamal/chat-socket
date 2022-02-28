@@ -1,0 +1,25 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+input,
+button,
+select,
+textarea {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font: inherit;
+  appearance: none;
+  width: 100%;
+  resize: none;
+}
+
+fieldset {
+  border: none;
+}
