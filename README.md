@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](https://raw.githubusercontent.com/imMahmoudKamal/chat-socket/main/public/img/showcase.jpg)
 
 ### Links
 
