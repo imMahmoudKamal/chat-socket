@@ -1,3 +1,7 @@
+//
+const mainElement = document.querySelector('[data-main]');
+document.body.style.height = `${mainElement.clientHeight}px`;
+
 // field animation
 const fieldElement = document.querySelector('[data-felid]');
 

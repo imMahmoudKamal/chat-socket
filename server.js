@@ -3,7 +3,7 @@ import express from 'express';
 import env from 'dotenv';
 import path from 'path';
 import { Server } from 'socket.io';
-import { formateMessage, getCurrentUser, joinNewUser, removeUser } from './utils/utils.js';
+import { formatMessage, getCurrentUser, joinNewUser, removeUser } from './utils/utils.js';
 
 env.config();
 const __dirname = path.resolve();
@@ -30,7 +30,7 @@ io.addListener('connection', (socket) => {
     socket.join(user.room);
 
     // new user connects
-    socket.broadcast.to(user.room).emit('message', formateMessage('bot', `${user.userName} has joined the chat!`));
+    socket.broadcast.to(user.room).emit('message', formatMessage('bot', `${user.userName} has joined the chat!`));
   });
 
   // get message
@@ -38,7 +38,7 @@ io.addListener('connection', (socket) => {
     const user = getCurrentUser(socket.id);
 
     if (user) {
-      io.to(user.room).emit('message', formateMessage(user.userName, message));
+      io.to(user.room).emit('message', formatMessage(user.userName, message));
     }
   });
 
@@ -47,17 +47,26 @@ io.addListener('connection', (socket) => {
     const user = removeUser(socket.id);
 
     if (user) {
-      io.to(user.room).emit('message', formateMessage('bot', `${user.userName} has left the chat!`));
+      io.to(user.room).emit('message', formatMessage('bot', `${user.userName} has left the chat!`));
     }
+  });
+
+  // chat
+  app.get('/chat', (req, res) => {
+    const user = getCurrentUser(socket.id);
+
+    if (!user) return res.redirect('/');
+
+    res.render('index', { ROOMS: false, user: req.body });
+  });
+
+  app.post('/chat', (req, res) => {
+    res.render('index', { ROOMS: false, user: req.body });
   });
 });
 
 app.get('/', (req, res) => {
   res.render('index', { ROOMS });
-});
-
-app.post('/chat', (req, res) => {
-  res.render('index', { ROOMS: false, user: req.body });
 });
 
 server.listen(PORT, () => {
