@@ -18,7 +18,7 @@ export function removeUser(id) {
   }
 }
 
-export function formateMessage(user, message) {
+export function formatMessage(user, message) {
   const date = new Date();
   const [hours, minute, when] = date.toLocaleTimeString().split(':');
 

@@ -41,17 +41,25 @@ fieldset {
 body {
   font-family: "Poppins", sans-serif;
   background: linear-gradient(135deg, rgb(var(--clr-blue)/80%), rgb(var(--clr-green)/60%));
+  height: 100vh;
+  width: 100vw;
 }
 
 .chatting {
-  width: 100%;
-  height: 100vh;
-  min-height: 600px;
   display: grid;
   place-items: center;
-  padding: 1rem;
   position: relative;
   overflow: hidden;
+  position: fixed;
+  inset: 0;
+  padding: 1rem;
+}
+@media (min-width: 48rem) {
+  .chatting {
+    max-width: 40rem;
+    overflow: visible;
+    margin: 0 auto;
+  }
 }
 .chatting::before, .chatting::after {
   content: "";
@@ -86,6 +94,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media (min-width: 48rem) {
+  .chatting__container {
+    max-width: 30rem;
+  }
 }
 
 .form {
@@ -147,6 +160,7 @@ body {
   border-radius: 0.5rem;
   background: linear-gradient(30deg, rgb(var(--clr-blue)) 30%, rgb(var(--clr-green)));
   color: rgb(var(--clr-neutral-100));
+  cursor: pointer;
 }
 
 .message {
@@ -171,6 +185,7 @@ body {
   height: 2rem;
   display: flex;
   place-items: center;
+  cursor: pointer;
 }
 
 .message-box {
@@ -180,6 +195,7 @@ body {
   gap: 1rem;
   position: absolute;
   inset: 1rem 1rem 5rem 1rem;
+  overflow: hidden;
 }
 .message-box__item {
   width: fit-content;
@@ -227,13 +243,14 @@ body {
   width: 100%;
   grid-column: 1/-1;
   grid-row: 1/2;
+  color: rgb(var(--clr-neutral-700));
 }
 .message-box__item__user {
   grid-row: 2/3;
   grid-column: 1/2;
   font-size: 0.7rem;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-start;
   background: linear-gradient(75deg, rgb(var(--clr-accent)/90%) 50%, rgb(var(--clr-neutral-700)));
   background-clip: text;
@@ -245,7 +262,7 @@ body {
   font-size: 0.6rem;
   color: rgb(var(--clr-neutral-700)/80%);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
 }
 .message-box__item--me {
@@ -260,6 +277,7 @@ body {
   right: -2rem;
 }
 .message-box__item--me span:first-child {
+  color: rgb(var(--clr-neutral-100));
   text-align: end;
 }
 .message-box__item--me span:last-child {
