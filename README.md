@@ -97,4 +97,4 @@ function formatMessage(user, message) {
 
 ## Author
 
-- LinkedIn - [@immahmoudkamal](https://www.linkedin.com/immahmoudkamal/)
+- LinkedIn - [@immahmoudkamal](https://www.linkedin.com/in/immahmoudkamal/)
